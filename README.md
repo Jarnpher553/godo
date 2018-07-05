@@ -1,44 +1,60 @@
 # Usage:
-    package main
+```go
+package main
 
-    import (
-        "fmt"
-        "jarnpher/godo"
-        "log"
-        "strconv"
-    )
+import (
+	"fmt"
+	"jarnpher/godo"
+	"log"
+	"strconv"
+)
 
-    func main() {
-        g := godo.New()
+func main() {
+	g := godo.New()
 
-        g.Use(func(h godo.HandleFunc) godo.HandleFunc {
-            return func(c *godo.Context) {
-                fmt.Println("lalalala")
+	g.Use(func(h godo.HandleFunc) godo.HandleFunc {
+		return func(c *godo.Context) {
+			fmt.Println("lalalala")
 
-                h(c)
-            }
-        })
+			h(c)
+		}
+	})
 
-        g.Use(func(h godo.HandleFunc) godo.HandleFunc {
-            return func(c *godo.Context) {
-                fmt.Println("nananana")
+	g.Use(func(h godo.HandleFunc) godo.HandleFunc {
+		return func(c *godo.Context) {
+			fmt.Println("nananana")
 
-                h(c)
-            }
-        })
+			h(c)
+		}
+	})
 
-        g.Get("/", func(c *godo.Context) {
-            c.JSON(300, struct {
-                Name string
-                Age  int
-            }{
-                Name: "aaa",
-                Age:  10,
-            })
-        })
+	g.Get("/users/:id", func(c *godo.Context) {
+		id, _ := strconv.Atoi(c.Src())
+		c.JSON(300, struct {
+			Id   int
+			Name string
+			Age  int
+		}{
+			Id:   id,
+			Name: "aaa",
+			Age:  10,
+		})
+	})
 
-        err := g.Run(":9999")
-        if err != nil {
-            log.Fatalln("Server Internal Error")
-        }
-    }
+	g.Get("/users/do", func(c *godo.Context) {
+		c.JSON(300, struct {
+			Name string
+			Age  int
+		}{
+			Name: "aaa",
+			Age:  10,
+		})
+	})
+
+	err := g.Run(":9999")
+	if err != nil {
+		log.Fatalln("Server Internal Error")
+	}
+}
+
+```
