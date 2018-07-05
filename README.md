@@ -4,9 +4,8 @@ package main
 
 import (
 	"fmt"
-	"jarnpher/godo"
+	"github.com/Jarnpher553/godo"
 	"log"
-	"strconv"
 )
 
 func main() {
