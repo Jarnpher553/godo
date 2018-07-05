@@ -28,20 +28,7 @@ func main() {
 		}
 	})
 
-	g.Get("/users/:id", func(c *godo.Context) {
-		id, _ := strconv.Atoi(c.Src())
-		c.JSON(300, struct {
-			Id   int
-			Name string
-			Age  int
-		}{
-			Id:   id,
-			Name: "aaa",
-			Age:  10,
-		})
-	})
-
-	g.Get("/users/do", func(c *godo.Context) {
+	g.Get("/", func(c *godo.Context) {
 		c.JSON(300, struct {
 			Name string
 			Age  int
